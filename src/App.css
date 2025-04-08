@@ -1,0 +1,89 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header {
+  font-size: 2.5rem;
+  width: 100%;
+  font-weight: bold;
+  margin: 1.5% 0px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 1s ease-in-out;
+}
+
+.header.center {
+  top: 35%;
+}
+
+.header.top {
+  top: 20px;
+}
+
+.help {
+  position: absolute;
+  right: 0%;
+  padding: 10px 2% 10px 0px;
+  cursor: pointer;
+}
+
+.transparent-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #242424aa
+}
+
+.portal-overlay {
+  color: black;
+  padding: 10px 20px;
+  border-radius: 15px;
+  box-shadow: 2px 1px 10px #ffffff9e;
+  background-color: white;
+}
+
+.portal-overlay button {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+  padding: 1% 3%;
+  border-radius: 5px;
+}
+
+.image-selection {
+  display: flex;
+}
+
+.image-selection>img {
+  height: 150px;
+  width: 175px;
+  object-fit: contain;
+  margin: 10px;
+  transition: transform 0.5s ease-out, border 0.1s ease-out;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.image-selection>img:hover {
+  transform: scale(1.05);
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+.selection-div-cntr {
+  display: inline-block;
+  width: 49%;
+}
+
+.selection-div-cntr>img {
+  max-height: 150px;
+}
