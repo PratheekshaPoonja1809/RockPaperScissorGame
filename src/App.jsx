@@ -7,6 +7,7 @@ import { Results } from "./Results";
 import { APP_TITLE, UserContext } from "./Constants";
 import { HelpCircle } from "react-feather";
 import Modal from "./utils/Modal";
+import { FaceOff } from "./FaceOff";
 
 function App() {
   const [startGame, setStartGame] = useState(false);
@@ -46,15 +47,26 @@ function App() {
       </header>
       <main className="main-container">
         <section>
-          {!timer && <HelpCircle className="help" onClick={toggleModal} />}
+          {!timer && (
+            <div className="menu-cntr">
+              <HelpCircle className="menu-option help" onClick={toggleModal} />
+              <FaceOff />
+            </div>
+          )}
           {modalDisplay && (
             <Modal onClose={setModalDisplay} text="Guide book" />
           )}
         </section>
-        {!startGame && <Button text="Lets Go..." onClick={startTheGameFn} className={`${!startGame ? "start-game":undefined}`}/>}
+        {!startGame && (
+          <Button
+            text="Lets Go..."
+            onClick={startTheGameFn}
+            className={`${!startGame ? "start-game" : undefined}`}
+          />
+        )}
         {startGame && timer > 0 && <p>Game starts in {timer}</p>}
         {!timer && (
-          <section>
+          <section className="full-width">
             <Userselection />
             <Computerselection
               selectionDone={finalSelection.selectionComplete}

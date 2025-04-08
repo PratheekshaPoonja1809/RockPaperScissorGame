@@ -22,9 +22,9 @@ function Modal({ text, onClose }) {
           </p>
           <strong>How to Play? </strong>
           <p>
-            Get ready for a quick and classic face-off! Choose your move - Rock,
-            Paper, or Scissors. The computer picks at the same time The winner
-            is decided by these rules:
+            Get ready for a quick and classic face-off! <br />
+            Choose your move - Rock, Paper, or Scissors. The computer picks at
+            the same time The winner is decided by these rules:
             <ul className="game-rules">
               <li>Rock crushes Scissors</li>
               <li>Paper covers Rock</li>

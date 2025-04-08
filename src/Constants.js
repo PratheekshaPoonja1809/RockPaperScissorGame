@@ -53,3 +53,8 @@ export const WINNER_DETAIL = {
   Computer: "Computer",
   Tie: "Tie",
 };
+
+export const MATCH_TYPE = {
+  TOURNAMENT: "Tournament",
+  NORMAL: "Normal",
+};

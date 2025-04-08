@@ -7,7 +7,7 @@ import { getRandomChoice } from "./helpers/getRandomChoice";
 export function Computerselection({ selectionDone }) {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
   const [compChoice, setCompChoice] = useState("");
-  const [isCompWinner, setWinnerDetail] = useState();
+  const [isCompWinner, setWinnerDetail] = useState(false);
 
   useEffect(() => {
     const choice = getRandomChoice(choices);
