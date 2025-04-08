@@ -6,6 +6,7 @@ import {
   UserContext,
   WINNER_DETAIL,
 } from "./Constants";
+import { getRandomChoice } from "./helpers/getRandomChoice";
 
 export function Results() {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
@@ -17,16 +18,16 @@ export function Results() {
     let res;
     let winnerDetail = "";
     if (!userSelectInfo || !compSelectInfo) {
-      res = RESULT_STATUS.ToStart;
+      res = getRandomChoice(RESULT_STATUS.ToStart);
     } else if (compSelectInfo === userSelectInfo) {
-      res = RESULT_STATUS.Tie;
-      winnerDetail = "Tie";
+      res = getRandomChoice(RESULT_STATUS.Tie);
+      winnerDetail = WINNER_DETAIL.Tie;
     } else {
       if (userSelectInfo === choices[0]) {
         res =
           compSelectInfo === choices[1]
-            ? RESULT_STATUS.Lose
-            : RESULT_STATUS.Win;
+            ? getRandomChoice(RESULT_STATUS.Lose)
+            : getRandomChoice(RESULT_STATUS.Win);
         winnerDetail =
           compSelectInfo === choices[1]
             ? WINNER_DETAIL.Computer
@@ -35,8 +36,8 @@ export function Results() {
       if (userSelectInfo === choices[1]) {
         res =
           compSelectInfo === choices[2]
-            ? RESULT_STATUS.Lose
-            : RESULT_STATUS.Win;
+            ? getRandomChoice(RESULT_STATUS.Lose)
+            : getRandomChoice(RESULT_STATUS.Win);
         winnerDetail =
           compSelectInfo === choices[2]
             ? WINNER_DETAIL.Computer
@@ -45,8 +46,8 @@ export function Results() {
       if (userSelectInfo === choices[2]) {
         res =
           compSelectInfo === choices[0]
-            ? RESULT_STATUS.Lose
-            : RESULT_STATUS.Win;
+            ? getRandomChoice(RESULT_STATUS.Lose)
+            : getRandomChoice(RESULT_STATUS.Win);
         winnerDetail =
           compSelectInfo === choices[0]
             ? WINNER_DETAIL.Computer
@@ -66,20 +67,20 @@ export function Results() {
 
   return (
     <h3>
-        Result:
-        <span
-          style={{
-            color:
-              gameWinner === "User"
-                ? "green"
-                : gameWinner === "Computer"
-                ? "red"
-                : "orange",
-          }}
-        >
-          {" "}
-          {result}
-        </span>
+      {!RESULT_STATUS.ToStart?.includes(result) && <>Result:</>}
+      <span
+        style={{
+          color:
+            gameWinner === WINNER_DETAIL.User
+              ? "green"
+              : gameWinner === WINNER_DETAIL.Computer
+              ? "red"
+              : "orange",
+        }}
+      >
+        {" "}
+        {result}
+      </span>
     </h3>
   );
 }

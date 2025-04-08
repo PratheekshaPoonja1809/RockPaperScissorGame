@@ -44,14 +44,14 @@ function App() {
       <header className={`header ${startGame ? "top" : "center"}`}>
         {APP_TITLE}
       </header>
-      <main>
+      <main className="main-container">
         <section>
           {!timer && <HelpCircle className="help" onClick={toggleModal} />}
           {modalDisplay && (
             <Modal onClose={setModalDisplay} text="Guide book" />
           )}
         </section>
-        {!startGame && <Button text="Lets Go..." onClick={startTheGameFn} />}
+        {!startGame && <Button text="Lets Go..." onClick={startTheGameFn} className={`${!startGame ? "start-game":undefined}`}/>}
         {startGame && timer > 0 && <p>Game starts in {timer}</p>}
         {!timer && (
           <section>

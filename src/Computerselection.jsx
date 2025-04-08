@@ -2,20 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import PropTypes from "prop-types";
 import crownImg from "./assets/crown.png";
+import { getRandomChoice } from "./helpers/getRandomChoice";
 
 export function Computerselection({ selectionDone }) {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
   const [compChoice, setCompChoice] = useState("");
   const [isCompWinner, setWinnerDetail] = useState();
 
-  const getRandomChoice = () => {
-    if (choices.length === 0) return "";
-    const index = Math.floor(Math.random() * choices.length);
-    return choices[index];
-  };
-
   useEffect(() => {
-    const choice = getRandomChoice();
+    const choice = getRandomChoice(choices);
     if (choice && selectionDone) {
       setCompChoice(choice);
       setFinalSelection((prev) => ({
