@@ -12,11 +12,16 @@ export const choices = ["Rock", "Paper", "Scissor"];
 export const IMAGE_MAP = {
   Rock: rockImg,
   Paper: paperImg,
-  Scissor: scissorsImg,
+  Scissor: scissorsImg
 };
 export const RESULT_STATUS = {
   Win: "You Win",
   Lose: "You Lose",
   Tie: "Its a Tie...",
-  ToStart: "Waiting for selections...",
+  ToStart: "Waiting for selections..."
+};
+export const WINNER_DETAIL = {
+  User: "User",
+  Computer: "Computer",
+  Tie: "Tie"
 };

@@ -15,6 +15,8 @@ function App() {
   const [finalSelection, setFinalSelection] = useState({
     userSelectInfo: "",
     compSelectInfo: "",
+    selectionComplete: false,
+    gameWinner: "",
   });
 
   const startTheGameFn = () => {
@@ -41,19 +43,23 @@ function App() {
     <UserContext.Provider value={{ finalSelection, setFinalSelection }}>
       <header className={`header ${startGame ? "top" : "center"}`}>
         {APP_TITLE}
-        {!timer && <HelpCircle className="help" onClick={toggleModal} />}
-        {modalDisplay && <Modal onClose={setModalDisplay} text="Guide book" />}
       </header>
       <main>
+        <section>
+          {!timer && <HelpCircle className="help" onClick={toggleModal} />}
+          {modalDisplay && (
+            <Modal onClose={setModalDisplay} text="Guide book" />
+          )}
+        </section>
         {!startGame && <Button text="Lets Go..." onClick={startTheGameFn} />}
         {startGame && timer > 0 && <p>Game starts in {timer}</p>}
         {!timer && (
           <section>
-            <Userselection/>
+            <Userselection />
             <Computerselection
-              userInputChange={finalSelection.userSelectInfo}
+              selectionDone={finalSelection.selectionComplete}
             />
-            <Results userInputChanged={finalSelection.userSelectInfo} />
+            <Results />
           </section>
         )}
       </main>

@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { choices, IMAGE_MAP, UserContext } from "./Constants";
+import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import PropTypes from "prop-types";
+import crownImg from "./assets/crown.png";
 
-export function Computerselection({ userInputChange }) {
-  const { setFinalSelection } = useContext(UserContext);
+export function Computerselection({ selectionDone }) {
+  const { finalSelection, setFinalSelection } = useContext(UserContext);
   const [compChoice, setCompChoice] = useState("");
+  const [isCompWinner, setWinnerDetail] = useState();
 
   const getRandomChoice = () => {
     if (choices.length === 0) return "";
@@ -14,14 +16,19 @@ export function Computerselection({ userInputChange }) {
 
   useEffect(() => {
     const choice = getRandomChoice();
-    if (choice) {
+    if (choice && selectionDone) {
       setCompChoice(choice);
       setFinalSelection((prev) => ({
         ...prev,
         compSelectInfo: choice,
+        selectionComplete: false,
       }));
     }
-  }, [userInputChange]);
+  }, [selectionDone]);
+
+  useEffect(() => {
+    setWinnerDetail(finalSelection.gameWinner);
+  }, [finalSelection.gameWinner]);
 
   return (
     <div className="selection-div-cntr">
@@ -36,14 +43,17 @@ export function Computerselection({ userInputChange }) {
         title={compChoice}
         className={`choosen-img`}
       />
+      {isCompWinner === WINNER_DETAIL.Computer && (
+        <img src={crownImg} alt="winner" className="crown-img" />
+      )}
     </div>
   );
 }
 
 Computerselection.propTypes = {
-  userInputChange: PropTypes.string,
+  selectionDone: PropTypes.string,
 };
 
 Computerselection.defaultProps = {
-  userInputChange: choices[0],
+  selectionDone: choices[0],
 };

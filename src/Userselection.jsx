@@ -1,18 +1,24 @@
-import React, { useContext, useState } from "react";
-import Dropdown from "./utils/Dropdown";
-import { choices, IMAGE_MAP, UserContext } from "./Constants";
+import React, { useContext, useEffect, useState } from "react";
+import crownImg from "./assets/crown.png";
+import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 
 export function Userselection() {
-  const { setFinalSelection } = useContext(UserContext);
-  const [selected, setSelected] = useState(choices[0]);
+  const { finalSelection, setFinalSelection } = useContext(UserContext);
+  const [selected, setSelected] = useState();
+  const [isUserWinner, setWinnerDetail] = useState();
 
   const handleSelect = (value) => {
     setSelected(value);
     setFinalSelection((prev) => ({
       ...prev,
       userSelectInfo: value,
+      selectionComplete: true,
     }));
   };
+
+  useEffect(() => {
+    setWinnerDetail(finalSelection.gameWinner);
+  }, [finalSelection.gameWinner]);
 
   return (
     <>
@@ -43,6 +49,9 @@ export function Userselection() {
           title={selected}
           className={`user-choice-img`}
         />
+        {isUserWinner === WINNER_DETAIL.User && (
+          <img src={crownImg} alt="Winner" className="crown-img" />
+        )}
       </div>
     </>
   );
