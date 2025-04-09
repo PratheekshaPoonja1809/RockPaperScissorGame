@@ -15,8 +15,14 @@ export const IMAGE_MAP = {
   Scissor: scissorsImg,
 };
 
-export const RESULT_STATUS = {
-  Win: [
+export const VICTORY_STATUS = {
+  ToStart: [
+    "Let the game begin - pick one!",
+    "Rock, Paper, or Scissors?",
+    "Don't keep the computer waiting…",
+    "Choose your weapon...",
+  ],
+  User: [
     "Victory is yours!",
     "You did it!",
     "You're on fire!",
@@ -24,7 +30,7 @@ export const RESULT_STATUS = {
     "You've conquered the machine!",
     "Winner winner!",
   ],
-  Lose: [
+  Computer: [
     "Better luck next time!",
     "Oops! That didn’t work out.",
     "Defeated, but not done!",
@@ -40,21 +46,32 @@ export const RESULT_STATUS = {
     "Mirror match!",
     "Nobody wins, nobody loses!",
   ],
-  ToStart: [
-    "Let the game begin - pick one!",
-    "Rock, Paper, or Scissors?",
-    "Don't keep the computer waiting…",
-    "Choose your weapon...",
-  ],
 };
 
 export const WINNER_DETAIL = {
   User: "User",
   Computer: "Computer",
   Tie: "Tie",
+  ToStart: "ToStart",
 };
 
 export const MATCH_TYPE = {
   TOURNAMENT: "Tournament",
   NORMAL: "Normal",
+};
+
+export const MATCH_DETAILS = {
+  selectionComplete: false, //required for completion of computer selection
+  userSelectInfo: "", //the option, user has selected
+  compSelectInfo: "", //the option, computer has selected
+  normalMatchResult: {
+    oneOnOneWinner: "",
+  },
+  tournamentMatchResult: {
+    isTournamentSelected: false, //false for normal game & true for tournament
+    totalMatchToConduct: 0,
+    tournamentResult: 0,
+    userWinningCount: 0,
+    compWinningCount: 0,
+  },
 };

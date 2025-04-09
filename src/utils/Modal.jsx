@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
-import { ChevronLeft, ChevronRight, X } from "react-feather";
+import { X } from "react-feather";
 import guide from "../assets/guideline.png";
 
 function Modal({ text, onClose }) {

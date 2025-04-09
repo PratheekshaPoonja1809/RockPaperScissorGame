@@ -4,7 +4,7 @@ import Button from "./utils/Button";
 import { Userselection } from "./Userselection";
 import { Computerselection } from "./Computerselection";
 import { Results } from "./Results";
-import { APP_TITLE, UserContext } from "./Constants";
+import { APP_TITLE, MATCH_DETAILS, UserContext } from "./Constants";
 import { HelpCircle } from "react-feather";
 import Modal from "./utils/Modal";
 import { FaceOff } from "./FaceOff";
@@ -13,12 +13,7 @@ function App() {
   const [startGame, setStartGame] = useState(false);
   const [timer, setTimer] = useState(3);
   const [modalDisplay, setModalDisplay] = useState(false);
-  const [finalSelection, setFinalSelection] = useState({
-    userSelectInfo: "",
-    compSelectInfo: "",
-    selectionComplete: false,
-    gameWinner: "",
-  });
+  const [finalSelection, setFinalSelection] = useState(MATCH_DETAILS);
 
   const startTheGameFn = () => {
     setStartGame(true);

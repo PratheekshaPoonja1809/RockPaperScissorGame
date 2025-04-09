@@ -1,5 +1,4 @@
 #root {
-  padding: 2rem;
   text-align: center;
 }
 
@@ -8,7 +7,7 @@
 }
 
 .main-container {
-  margin-top: 5%;
+  margin-top: 1%;
 
 }
 
@@ -16,19 +15,15 @@
   font-size: 2.5rem;
   width: 100%;
   font-weight: bold;
-  padding: 1.5% 0px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
   transition: all 1s ease-in-out;
 }
 
 .header.center {
-  top: 35%;
+  padding: 20% 0px 1%;
 }
 
 .header.top {
-  top: 5%;
+  padding: 1%;
   box-shadow: 10px 5px 10px #ccc;
 }
 
@@ -36,7 +31,7 @@
   cursor: pointer;
   width: 35px;
   height: 35px;
-  margin: 0px 10px;
+  margin: 0px 1%;
 }
 
 .menu-cntr {
@@ -45,16 +40,13 @@
   align-items: center;
 }
 
-.help {
-  right: 0%;
-}
 
 .face-off {
   right: 4%;
 }
 
 .transparent-overlay {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   inset: 0px;
@@ -66,7 +58,7 @@
 }
 
 .portal-overlay {
-  width: 30%;
+  width: 45%;
   height: 50%;
   text-align: center;
   color: black;
@@ -117,30 +109,56 @@
 }
 
 .selection-div-cntr {
-  display: inline-block;
+  display: inline-flex;
   width: 25%;
   position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
 }
 
 #user-input-select,
 #comp-input-select {
   max-height: 150px;
-  margin-top: 10%;
+  margin-top: 25px;
+}
+
+.crown-cntr {
+  position: relative;
 }
 
 .crown-img {
   height: 100px;
   position: absolute;
-  top: 0%;
-  left: 35%;
-  margin-top: 0px;
-}
-
-.start-game {
-  position: absolute;
-  top: 45%
+  top: -25%;
+  right: 18%;
 }
 
 .match-info {
   flex: 1;
+  margin: 5px;
+}
+
+.tournament-result-cntr>h3 {
+  margin: 5px;
+}
+
+@media (max-width: 900px) {
+  .selection-div-cntr {
+    width: 49%;
+  }
+
+  .match-info {
+    margin: 2%;
+  }
+
+  #user-input-select,
+  #comp-input-select {
+    margin-top: 14%;
+  }
+
+  .portal-overlay {
+    width: 80%;
+    height: 80%;
+  }
 }
