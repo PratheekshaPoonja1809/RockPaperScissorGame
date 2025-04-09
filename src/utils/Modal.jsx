@@ -21,7 +21,7 @@ function Modal({ text, onClose }) {
             hand gesture that beats your opponent's choice.
           </p>
           <strong>How to Play? </strong>
-          <p>
+          <div>
             Get ready for a quick and classic face-off! <br />
             Choose your move - Rock, Paper, or Scissors. The computer picks at
             the same time The winner is decided by these rules:
@@ -32,7 +32,7 @@ function Modal({ text, onClose }) {
               <li>Same move? It's a tie</li>
             </ul>
             <em>Make your choice… and may the best pick win!</em>
-          </p>
+          </div>
           <img src={guide} alt="Guide" />
         </div>
       </section>

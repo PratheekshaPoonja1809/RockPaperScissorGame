@@ -4,7 +4,6 @@ import { getRandomChoice } from "./getRandomChoice";
 export const getWinnerDetail = (finalSelection) => {
   let winnerDetail = "";
   const { userSelectInfo, compSelectInfo } = finalSelection;
-  //   const { tournamentMatchResult } = finalSelection;
 
   if (compSelectInfo === userSelectInfo) {
     winnerDetail = WINNER_DETAIL.Tie;
@@ -39,5 +38,5 @@ export const getWinnerDetail = (finalSelection) => {
   let param = VICTORY_STATUS[winnerDetail] || VICTORY_STATUS.ToStart;
   let resultText = getRandomChoice(param);
 
-  return [resultText, winnerDetail];
+  return [winnerDetail, resultText];
 };

@@ -29,7 +29,7 @@ function App() {
     if (startGame && timer > 0) {
       interval = setInterval(() => {
         setTimer((t) => t - 1);
-      }, 500);
+      }, 100);
     }
 
     return () => clearInterval(interval);
@@ -63,9 +63,7 @@ function App() {
         {!timer && (
           <section className="full-width">
             <Userselection />
-            <Computerselection
-              selectionDone={finalSelection.selectionComplete}
-            />
+            <Computerselection />
             <Results />
           </section>
         )}

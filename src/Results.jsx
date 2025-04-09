@@ -1,87 +1,119 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import {
-  choices,
-  RESULT_STATUS,
-  UserContext,
-  WINNER_DETAIL,
-} from "./Constants";
-import { getRandomChoice } from "./helpers/getRandomChoice";
+import { VICTORY_STATUS, UserContext, WINNER_DETAIL } from "./Constants";
+import { getWinnerDetail } from "./helpers/getWinnerDetail";
+import Button from "./utils/Button";
 
 export function Results() {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
   const [result, setResult] = useState("");
 
-  const { userSelectInfo, compSelectInfo, gameWinner } = finalSelection;
+  const {
+    userSelectInfo,
+    compSelectInfo,
+    selectionComplete,
+    normalMatchResult: { oneOnOneWinner },
+    tournamentMatchResult: {
+      isTournamentSelected,
+      userWinningCount,
+      compWinningCount,
+      tournamentsCompleted,
+    },
+  } = finalSelection;
 
   const displayResult = () => {
-    let res;
-    let winnerDetail = "";
-    if (!userSelectInfo || !compSelectInfo) {
-      res = getRandomChoice(RESULT_STATUS.ToStart);
-    } else if (compSelectInfo === userSelectInfo) {
-      res = getRandomChoice(RESULT_STATUS.Tie);
-      winnerDetail = WINNER_DETAIL.Tie;
-    } else {
-      if (userSelectInfo === choices[0]) {
-        res =
-          compSelectInfo === choices[1]
-            ? getRandomChoice(RESULT_STATUS.Lose)
-            : getRandomChoice(RESULT_STATUS.Win);
-        winnerDetail =
-          compSelectInfo === choices[1]
-            ? WINNER_DETAIL.Computer
-            : WINNER_DETAIL.User;
-      }
-      if (userSelectInfo === choices[1]) {
-        res =
-          compSelectInfo === choices[2]
-            ? getRandomChoice(RESULT_STATUS.Lose)
-            : getRandomChoice(RESULT_STATUS.Win);
-        winnerDetail =
-          compSelectInfo === choices[2]
-            ? WINNER_DETAIL.Computer
-            : WINNER_DETAIL.User;
-      }
-      if (userSelectInfo === choices[2]) {
-        res =
-          compSelectInfo === choices[0]
-            ? getRandomChoice(RESULT_STATUS.Lose)
-            : getRandomChoice(RESULT_STATUS.Win);
-        winnerDetail =
-          compSelectInfo === choices[0]
-            ? WINNER_DETAIL.Computer
-            : WINNER_DETAIL.User;
-      }
+    const [winnerDetail, resultText] = getWinnerDetail(finalSelection);
+    if (selectionComplete) {
+      setResult(resultText);
+
+      setFinalSelection((prev) => {
+        const prevMatch = prev.normalMatchResult || {};
+        return {
+          ...prev,
+          selectionComplete: false,
+          normalMatchResult: {
+            ...prevMatch,
+            oneOnOneWinner: winnerDetail,
+          },
+        };
+      });
     }
-    setResult(res);
-    setFinalSelection((prev) => ({
-      ...prev,
-      gameWinner: winnerDetail,
-    }));
   };
 
+  const displayTournamentResult = () => {
+    if (selectionComplete) {
+      const [winnerDetail, resultText] = getWinnerDetail(finalSelection);
+      setResult(resultText);
+      setFinalSelection((prev) => {
+        const prevTournament = prev.tournamentMatchResult || {};
+        return {
+          ...prev,
+          selectionComplete: false,
+          tournamentMatchResult: {
+            ...prevTournament,
+            userWinningCount:
+              winnerDetail === WINNER_DETAIL.User
+                ? (prevTournament.userWinningCount || 0) + 1
+                : prevTournament.userWinningCount || 0,
+            compWinningCount:
+              winnerDetail === WINNER_DETAIL.Computer
+                ? (prevTournament.compWinningCount || 0) + 1
+                : prevTournament.compWinningCount || 0,
+            tournamentsCompleted:
+              (prevTournament.tournamentsCompleted || 0) + 1,
+          },
+        };
+      });
+    }
+  };
+
+  const resetTournamentMatch = () => {};
+
   useEffect(() => {
-    displayResult();
-  }, [userSelectInfo, compSelectInfo]);
+    if (!compSelectInfo) return;
+    if (!isTournamentSelected) {
+      displayResult();
+    }
+  }, [selectionComplete, compSelectInfo]);
+
+  useEffect(() => {
+    if (!compSelectInfo || !selectionComplete) return;
+    if (isTournamentSelected) {
+      displayTournamentResult();
+    }
+  }, [selectionComplete, compSelectInfo, userSelectInfo]);
+  //both compSelectInfo, userSelectInfo is passed as dependency as count wont increase if user/computer selects same option as previous ones
 
   return (
-    <h3>
-      {!RESULT_STATUS.ToStart?.includes(result) && <>Result:</>}
-      <span
-        style={{
-          color:
-            gameWinner === WINNER_DETAIL.User
-              ? "green"
-              : gameWinner === WINNER_DETAIL.Computer
-              ? "red"
-              : "orange",
-        }}
-      >
-        {" "}
-        {result}
-      </span>
-    </h3>
+    <>
+      {isTournamentSelected ? (
+        <div className="tournament-result-cntr">
+          <h3>
+            ScoreBoard - {userWinningCount}:{compWinningCount}
+          </h3>
+          <h3>Match Completed - {tournamentsCompleted}</h3>
+          {!VICTORY_STATUS.ToStart?.includes(result) && <>Result:</>}
+          <Button text="Reset" onClick={resetTournamentMatch} />
+        </div>
+      ) : (
+        <h3>
+          {!VICTORY_STATUS.ToStart?.includes(result) && <>Result:</>}
+          <span
+            style={{
+              color:
+                oneOnOneWinner === WINNER_DETAIL.User
+                  ? "green"
+                  : oneOnOneWinner === WINNER_DETAIL.Computer
+                  ? "red"
+                  : "orange",
+            }}
+          >
+            {" "}
+            {result}
+          </span>
+        </h3>
+      )}
+    </>
   );
 }
 

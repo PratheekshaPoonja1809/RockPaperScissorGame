@@ -10,17 +10,17 @@ export function FaceOff() {
   const { setFinalSelection } = useContext(UserContext);
 
   const updateTournamentState = (isActive, count = 0) => {
-      setMatchType(isActive ? MATCH_TYPE.TOURNAMENT : MATCH_TYPE.NORMAL);
-      setMatchCount(count);
-      setFinalSelection((prev) => ({
-        ...prev,
-        tournamentMatchResult: {
-          ...(prev.tournamentMatchResult || {}),
-          isTournamentSelected: isActive,
-          totalMatchToConduct: isActive?count:0,
-          tournamentResult: 0,
-        },
-      }));
+    setMatchType(isActive ? MATCH_TYPE.TOURNAMENT : MATCH_TYPE.NORMAL);
+    setMatchCount(count);
+    setFinalSelection((prev) => ({
+      ...prev,
+      tournamentMatchResult: {
+        ...(prev.tournamentMatchResult || {}),
+        isTournamentSelected: isActive,
+        totalMatchToConduct: isActive ? count : 0,
+        tournamentsCompleted: 0,
+      },
+    }));
   };
 
   const startFaceoffMatch = () => {

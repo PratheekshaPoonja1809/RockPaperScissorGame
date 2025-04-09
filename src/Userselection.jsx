@@ -1,24 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import crownImg from "./assets/crown.png";
 import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
+import { getRandomChoice } from "./helpers/getRandomChoice";
 
 export function Userselection() {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
+
   const [selected, setSelected] = useState();
   const [isUserWinner, setWinnerDetail] = useState();
+  const [matchCompleted, setMatchCompleted] = useState(0);
+
+  const {
+    tournamentMatchResult: { isTournamentSelected, totalMatchToConduct },
+    normalMatchResult: { oneOnOneWinner },
+  } = finalSelection;
 
   const handleSelect = (value) => {
-    setSelected(value);
-    setFinalSelection((prev) => ({
-      ...prev,
-      userSelectInfo: value,
-      selectionComplete: true,
-    }));
+    if (
+      !isTournamentSelected ||
+      (isTournamentSelected && totalMatchToConduct > matchCompleted)
+    ) {
+      let choice = getRandomChoice(choices);
+      setSelected(value);
+      setMatchCompleted((num) => num + 1);
+      setFinalSelection((prev) => {
+        return {
+          ...prev,
+          selectionComplete: true,
+          userSelectInfo: value,
+          compSelectInfo: choice,
+        };
+      });
+    }
   };
 
   useEffect(() => {
-    setWinnerDetail(finalSelection.gameWinner);
-  }, [finalSelection.gameWinner]);
+    setWinnerDetail(oneOnOneWinner);
+  }, [oneOnOneWinner]);
+
+  useEffect(() => {
+    setMatchCompleted(0);
+  }, [isTournamentSelected]);
 
   return (
     <>
@@ -41,17 +63,18 @@ export function Userselection() {
         <label htmlFor="user-input-select">
           <strong>Your Selection:</strong>
         </label>
-        <br />
-        <img
-          id="user-input-select"
-          src={IMAGE_MAP[selected]}
-          alt={selected}
-          title={selected}
-          className={`user-choice-img`}
-        />
-        {isUserWinner === WINNER_DETAIL.User && (
-          <img src={crownImg} alt="Winner" className="crown-img" />
-        )}
+        <div className="crown-cntr">
+          <img
+            id="user-input-select"
+            src={IMAGE_MAP[selected]}
+            alt={selected}
+            title={selected}
+            className={`user-choice-img`}
+          />
+          {isUserWinner === WINNER_DETAIL.User && (
+            <img src={crownImg} alt="Winner" className="crown-img" />
+          )}
+        </div>
       </div>
     </>
   );

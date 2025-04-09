@@ -70,7 +70,7 @@ export const MATCH_DETAILS = {
   tournamentMatchResult: {
     isTournamentSelected: false, //false for normal game & true for tournament
     totalMatchToConduct: 0,
-    tournamentResult: 0,
+    tournamentsCompleted: 0,
     userWinningCount: 0,
     compWinningCount: 0,
   },
