@@ -56,7 +56,7 @@ function App() {
           <Button
             text="Lets Go..."
             onClick={startTheGameFn}
-            className={`${!startGame ? "start-game" : undefined}`}
+            className={`${!startGame ? "start-game button" : undefined}`}
           />
         )}
         {startGame && timer > 0 && <p>Game starts in {timer}</p>}

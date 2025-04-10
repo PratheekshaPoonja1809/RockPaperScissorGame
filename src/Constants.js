@@ -73,5 +73,6 @@ export const MATCH_DETAILS = {
     tournamentsCompleted: 0,
     userWinningCount: 0,
     compWinningCount: 0,
+    currentRoundWinner:""
   },
 };

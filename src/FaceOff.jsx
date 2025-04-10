@@ -19,6 +19,9 @@ export function FaceOff() {
         isTournamentSelected: isActive,
         totalMatchToConduct: isActive ? count : 0,
         tournamentsCompleted: 0,
+        userWinningCount: 0,
+        compWinningCount: 0,
+        currentRoundWinner: "",
       },
     }));
   };
