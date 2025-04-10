@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import PropTypes from "prop-types";
 import crownImg from "./assets/crown.png";
+import Tippy from "@tippyjs/react";
 
 export function Computerselection() {
   const { finalSelection } = useContext(UserContext);
@@ -34,13 +35,14 @@ export function Computerselection() {
                 : "crown-cntr"
             }`}
           >
-            <img
-              id="comp-input-select"
-              src={IMAGE_MAP[compSelectInfo]}
-              alt={compSelectInfo}
-              title={compSelectInfo}
-              className={`choosen-img`}
-            />
+            <Tippy content={compSelectInfo}>
+              <img
+                id="comp-input-select"
+                src={IMAGE_MAP[compSelectInfo]}
+                alt={compSelectInfo}
+                className={`choosen-img`}
+              />
+            </Tippy>
             {!isTournamentSelected &&
               isCompWinner === WINNER_DETAIL.Computer && (
                 <img src={crownImg} alt="winner" className="crown-img" />

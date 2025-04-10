@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { X } from "react-feather";
 
-function Modal({ text, onClose, children, width="45%" }) {
+function Modal({ text, onClose, children, width }) {
   return createPortal(
     <div className="transparent-overlay flex-center">
       <section className="portal-overlay" style={{width}}>

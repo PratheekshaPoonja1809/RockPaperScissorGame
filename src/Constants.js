@@ -8,14 +8,14 @@ import lostImg from "./assets/lost-game.gif";
 
 export const UserContext = createContext();
 
-export const APP_TITLE = "Rock - Paper - Scissor";
+export const APP_TITLE = "Rock - Paper - Scissors";
 
-export const choices = ["Rock", "Paper", "Scissor"];
+export const choices = ["Rock", "Paper", "Scissors"];
 
 export const IMAGE_MAP = {
   Rock: rockImg,
   Paper: paperImg,
-  Scissor: scissorsImg,
+  Scissors: scissorsImg,
   User: victoryImg,
   Tie: tieImg,
   Computer: lostImg,
@@ -23,34 +23,34 @@ export const IMAGE_MAP = {
 
 export const VICTORY_STATUS = {
   ToStart: [
-    "Let the game begin - pick one!",
-    "Rock, Paper, or Scissors?",
-    "Don't keep the computer waiting…",
+    "Let the game begin - pick one! ",
+    "Rock, Paper, or Scissors?" ,
+    "Don't keep the computer waiting...",
     "Choose your weapon...",
   ],
   User: [
-    "Victory is yours!",
-    "You did it!",
-    "You're on fire!",
-    "A glorious triumph!",
-    "You've conquered the machine!",
-    "Winner winner!",
+    "Victory is yours! ",
+    "You did it! ",
+    "You're on fire! ",
+    "A glorious triumph! ",
+    "You've conquered the machine! ",
+    "Winner winner! ",
   ],
   Computer: [
-    "Better luck next time!",
-    "Oops! That didn’t work out.",
-    "Defeated, but not done!",
-    "Crushed by the computer!",
-    "The crown slips away…",
-    "Outplayed this time.",
+    "Better luck next time! ",
+    "Oops! That didn't work out. ",
+    "Defeated, but not done! ",
+    "Crushed by the computer! ",
+    "The crown slips away... ",
+    "Outplayed this time. ",
   ],
   Tie: [
-    "Great minds think alike!",
-    "It's a draw!",
-    "No winners this time!",
-    "Neither side budged…",
-    "Mirror match!",
-    "Nobody wins, nobody loses!",
+    "Great minds think alike! ",
+    "It's a draw! ",
+    "No winners this time! ",
+    "Neither side budged... ",
+    "Mirror match! ",
+    "Nobody wins, nobody loses! ",
   ],
 };
 
@@ -79,6 +79,13 @@ export const MATCH_DETAILS = {
     tournamentsCompleted: 0,
     userWinningCount: 0,
     compWinningCount: 0,
-    currentRoundWinner:""
+    currentRoundWinner: "",
   },
+};
+
+export const FEEDBACK = {
+  MSG1: "Whether you enjoyed the game or see room for improvement, your input truly matters. Feel free to reach out via ",
+  MSG2: "I'd love to hear from you. Thanks so much for checking it out!",
+  MAIL: "mailto:prathee024@email.com",
+  LINKEDIN: "https://www.linkedin.com/in/pratheeksha-poonja-4a62a9bb/",
 };

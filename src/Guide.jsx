@@ -22,7 +22,7 @@ export const Guide = ({ onClose }) => {
             <li className="flex-center">
               Rock(
               <Image src={IMAGE_MAP.Rock} alt="Rock" />) crushes Scissors(
-              <Image src={IMAGE_MAP.Scissor} alt="Scissor" />)
+              <Image src={IMAGE_MAP.Scissors} alt="Scissors" />)
             </li>
             <li className="flex-center">
               Paper(
@@ -31,7 +31,7 @@ export const Guide = ({ onClose }) => {
             </li>
             <li className="flex-center">
               Scissors(
-              <Image src={IMAGE_MAP.Scissor} alt="Scissor" />) cut Paper(
+              <Image src={IMAGE_MAP.Scissors} alt="Scissors" />) cut Paper(
               <Image src={IMAGE_MAP.Paper} alt="Paper" />)
             </li>
             <li className="flex-center">Same move? It's a tie</li>
@@ -52,10 +52,12 @@ export const Guide = ({ onClose }) => {
             The game keeps track of scores for both sides. <br />
             Once all matches are finished, the game shows the final winner based
             on the total score. <br />
-            <strong><em>
-              It's a fun way to play multiple rounds and see who comes out on
-              top!
-            </em></strong>
+            <strong>
+              <em>
+                It's a fun way to play multiple rounds and see who comes out on
+                top!
+              </em>
+            </strong>
           </p>
         </>
       </div>

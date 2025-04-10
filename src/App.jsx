@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import "./App.css";
 import Button from "./utils/Button";
 import { Userselection } from "./Userselection";
 import { Computerselection } from "./Computerselection";
 import { Results } from "./Results";
-import { APP_TITLE, MATCH_DETAILS, UserContext } from "./Constants";
-import { HelpCircle } from "react-feather";
+import { APP_TITLE, FEEDBACK, MATCH_DETAILS, UserContext } from "./Constants";
+import { HelpCircle, Linkedin, Mail, MoreVertical } from "react-feather";
 import Modal from "./utils/Modal";
 import { FaceOff } from "./FaceOff";
 import { Guide } from "./Guide";
 
 function App() {
   const [startGame, setStartGame] = useState(false);
+  const [isFeedbackRequested, setFeedbackRequested] = useState(false);
   const [timer, setTimer] = useState(3);
   const [modalDisplay, setModalDisplay] = useState(false);
   const [finalSelection, setFinalSelection] = useState(MATCH_DETAILS);
@@ -45,12 +48,46 @@ function App() {
         <section>
           {!timer && (
             <div className="menu-cntr">
-              <HelpCircle className="menu-option help" onClick={toggleModal} />
+              <Tippy content="Give us your thoughts">
+                <MoreVertical
+                  onClick={() => setFeedbackRequested(!isFeedbackRequested)}
+                />
+              </Tippy>
+              <Tippy content="View app guide">
+                <HelpCircle
+                  className="menu-option help"
+                  onClick={toggleModal}
+                />
+              </Tippy>
               <FaceOff />
             </div>
           )}
-          {modalDisplay && (
-            <Guide onClose={setModalDisplay}/>
+          {modalDisplay && <Guide onClose={setModalDisplay} />}
+          {isFeedbackRequested && (
+            <Modal
+              text="Got feedback? We're all ears!"
+              onClose={() => setFeedbackRequested(!isFeedbackRequested)}
+            >
+              <p className="feedback-para">
+                {FEEDBACK.MSG1}
+                <a href={FEEDBACK.MAIL}>
+                  <Tippy content="Get in touch via email">
+                    <Mail width="35px" />
+                  </Tippy>
+                </a>{" "}
+                or{" "}
+                <a
+                  href={FEEDBACK.LINKEDIN}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Tippy content="Connect with me on LinkedIn">
+                    <Linkedin width="35px" />
+                  </Tippy>
+                </a>
+                {FEEDBACK.MSG2}.
+              </p>
+            </Modal>
           )}
         </section>
         {!startGame && (

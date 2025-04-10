@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import crownImg from "./assets/crown.png";
 import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import { getRandomChoice } from "./helpers/getRandomChoice";
+import Tippy from "@tippyjs/react";
 
 export function Userselection() {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
@@ -54,14 +55,15 @@ export function Userselection() {
       </p>
       <div className="image-selection">
         {choices.map((choice) => (
-          <img
-            key={choice}
-            src={IMAGE_MAP[choice]}
-            alt={choice}
-            title={choice}
-            onClick={() => handleSelect(choice)}
-            className={`choosen-img ${selected === choice ? "selected" : ""}`}
-          />
+          <Tippy content={choice}>
+            <img
+              key={choice}
+              src={IMAGE_MAP[choice]}
+              alt={choice}
+              onClick={() => handleSelect(choice)}
+              className={`choosen-img ${selected === choice ? "selected" : ""}`}
+            />
+          </Tippy>
         ))}
       </div>
       {(tournamentsCompleted !== 0 || oneOnOneWinner !== "") && (
@@ -77,13 +79,15 @@ export function Userselection() {
                 : " crown-cntr"
             }`}
           >
-            <img
-              id="user-input-select"
-              src={IMAGE_MAP[selected]}
-              alt={selected}
-              title={selected}
-              className={`user-choice-img`}
-            />
+            <Tippy content={selected}>
+              <img
+                id="user-input-select"
+                src={IMAGE_MAP[selected]}
+                alt={selected}
+                title={selected}
+                className={`user-choice-img`}
+              />
+            </Tippy>
             {!isTournamentSelected && isUserWinner === WINNER_DETAIL.User && (
               <img src={crownImg} alt="Winner" className="crown-img" />
             )}

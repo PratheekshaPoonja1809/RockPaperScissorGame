@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import match from "./assets/faceoff.png";
 import { LogOut } from "react-feather";
 import { MATCH_TYPE, UserContext } from "./Constants";
+import Tippy from "@tippyjs/react";
 
 export function FaceOff() {
   const [matchCount, setMatchCount] = useState(0);
@@ -47,19 +48,22 @@ export function FaceOff() {
   return (
     <>
       {matchType === MATCH_TYPE.TOURNAMENT ? (
-        <LogOut
-          alt="Exit Face-off"
-          className="menu-option face-off"
-          onClick={startFaceoffMatch}
-        />
+        <Tippy content="Play a 1-on-1 game">
+          <LogOut
+            alt="Exit Face-off"
+            className="menu-option face-off"
+            onClick={startFaceoffMatch}
+          />
+        </Tippy>
       ) : (
-        <img
-          src={match}
-          alt="Face-off"
-          className="menu-option face-off"
-          onClick={startFaceoffMatch}
-          title="Start Faceoff"
-        />
+        <Tippy content="Ready to battle?">
+          <img
+            src={match}
+            alt="Face-off"
+            className="menu-option face-off"
+            onClick={startFaceoffMatch}
+          />
+        </Tippy>
       )}
       {matchCount > 0 && matchType === MATCH_TYPE.TOURNAMENT && (
         <h3 className="match-info">

@@ -154,11 +154,33 @@ export function Results() {
           <h3>Matches Played: {tournamentsCompleted}</h3>
           <Button text="Rematch" onClick={resetTournamentMatch} />
           {tournamentsCompleted === totalMatchToConduct && (
-            <Modal text="Game Outcome" onClose={resetTournamentMatch} width="25%">
-              <h3 className="flex-center">{getFaceoffResults()}
-                {mapImage === WINNER_DETAIL.User &&<Smile color="green"/>}
-                {mapImage === WINNER_DETAIL.Computer &&<Frown color="red"/>}
-                {mapImage === WINNER_DETAIL.Tie &&<Meh color="orange"/>}
+            <Modal text="Game Outcome" onClose={resetTournamentMatch}>
+              <h3 className="flex-center no-white-space">
+                {getFaceoffResults()}
+                {mapImage === WINNER_DETAIL.User && (
+                  <>
+                    <Smile color="green" className="padding1" />
+                    <span>
+                      You won by {userWinningCount} : {compWinningCount}
+                    </span>
+                  </>
+                )}
+                {mapImage === WINNER_DETAIL.Computer && (
+                  <>
+                    <Frown color="red" className="padding1" />
+                    <span>
+                      You lost by {userWinningCount} : {compWinningCount}
+                    </span>
+                  </>
+                )}
+                {mapImage === WINNER_DETAIL.Tie && (
+                  <>
+                    <Meh color="orange" className="padding1" />
+                    <span>
+                      {userWinningCount} : {compWinningCount}
+                    </span>
+                  </>
+                )}
               </h3>
               <img
                 src={IMAGE_MAP[mapImage]}
