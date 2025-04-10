@@ -8,6 +8,7 @@ import { APP_TITLE, MATCH_DETAILS, UserContext } from "./Constants";
 import { HelpCircle } from "react-feather";
 import Modal from "./utils/Modal";
 import { FaceOff } from "./FaceOff";
+import { Guide } from "./Guide";
 
 function App() {
   const [startGame, setStartGame] = useState(false);
@@ -49,7 +50,7 @@ function App() {
             </div>
           )}
           {modalDisplay && (
-            <Modal onClose={setModalDisplay} text="Guide book" />
+            <Guide onClose={setModalDisplay}/>
           )}
         </section>
         {!startGame && (

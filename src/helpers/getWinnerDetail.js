@@ -3,7 +3,8 @@ import { getRandomChoice } from "./getRandomChoice";
 
 export const getWinnerDetail = (finalSelection) => {
   let winnerDetail = "";
-  const { userSelectInfo, compSelectInfo } = finalSelection;
+ 
+  const { userSelectInfo, compSelectInfo } = finalSelection; //ch
 
   if (compSelectInfo === userSelectInfo) {
     winnerDetail = WINNER_DETAIL.Tie;

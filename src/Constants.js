@@ -2,6 +2,9 @@ import { createContext } from "react";
 import rockImg from "./assets/rock.png";
 import paperImg from "./assets/paper.png";
 import scissorsImg from "./assets/scissor.png";
+import victoryImg from "./assets/award.gif";
+import tieImg from "./assets/draw.gif";
+import lostImg from "./assets/lost-game.gif";
 
 export const UserContext = createContext();
 
@@ -13,6 +16,9 @@ export const IMAGE_MAP = {
   Rock: rockImg,
   Paper: paperImg,
   Scissor: scissorsImg,
+  User: victoryImg,
+  Tie: tieImg,
+  Computer: lostImg,
 };
 
 export const VICTORY_STATUS = {

@@ -6,30 +6,49 @@ import crownImg from "./assets/crown.png";
 export function Computerselection() {
   const { finalSelection } = useContext(UserContext);
   const [isCompWinner, setWinnerDetail] = useState(false);
-  const {compSelectInfo,normalMatchResult:{oneOnOneWinner}} = finalSelection;
+  const {
+    compSelectInfo,
+    normalMatchResult: { oneOnOneWinner },
+    tournamentMatchResult: {
+      isTournamentSelected,
+      currentRoundWinner,
+      tournamentsCompleted,
+    },
+  } = finalSelection;
 
   useEffect(() => {
     setWinnerDetail(oneOnOneWinner);
   }, [oneOnOneWinner]);
 
   return (
-    <div className="selection-div-cntr">
-      <label htmlFor="comp-input-select">
-        <strong>Computer Selection:</strong>
-      </label>
-      <div className="crown-cntr">
-        <img
-          id="comp-input-select"
-          src={IMAGE_MAP[compSelectInfo]}
-          alt={compSelectInfo}
-          title={compSelectInfo}
-          className={`choosen-img`}
-        />
-        {isCompWinner === WINNER_DETAIL.Computer && (
-          <img src={crownImg} alt="winner" className="crown-img" />
-        )}
-      </div>
-    </div>
+    <>
+      {(tournamentsCompleted !== 0 || oneOnOneWinner !== "") && (
+        <div className="selection-div-cntr">
+          <label htmlFor="comp-input-select">
+            <strong>Computer Selection:</strong>
+          </label>
+          <div
+            className={`${
+              isTournamentSelected && currentRoundWinner === WINNER_DETAIL.User
+                ? "match-lost crown-cntr"
+                : "crown-cntr"
+            }`}
+          >
+            <img
+              id="comp-input-select"
+              src={IMAGE_MAP[compSelectInfo]}
+              alt={compSelectInfo}
+              title={compSelectInfo}
+              className={`choosen-img`}
+            />
+            {!isTournamentSelected &&
+              isCompWinner === WINNER_DETAIL.Computer && (
+                <img src={crownImg} alt="winner" className="crown-img" />
+              )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -11,8 +11,13 @@ export function Userselection() {
   const [matchCompleted, setMatchCompleted] = useState(0);
 
   const {
-    tournamentMatchResult: { isTournamentSelected, totalMatchToConduct },
     normalMatchResult: { oneOnOneWinner },
+    tournamentMatchResult: {
+      isTournamentSelected,
+      totalMatchToConduct,
+      tournamentsCompleted,
+      currentRoundWinner,
+    },
   } = finalSelection;
 
   const handleSelect = (value) => {
@@ -39,8 +44,8 @@ export function Userselection() {
   }, [oneOnOneWinner]);
 
   useEffect(() => {
-    setMatchCompleted(0);
-  }, [isTournamentSelected]);
+    isTournamentSelected && tournamentsCompleted === 0 && setMatchCompleted(0);
+  }, [isTournamentSelected, tournamentsCompleted]);
 
   return (
     <>
@@ -59,23 +64,32 @@ export function Userselection() {
           />
         ))}
       </div>
-      <div className="selection-div-cntr">
-        <label htmlFor="user-input-select">
-          <strong>Your Selection:</strong>
-        </label>
-        <div className="crown-cntr">
-          <img
-            id="user-input-select"
-            src={IMAGE_MAP[selected]}
-            alt={selected}
-            title={selected}
-            className={`user-choice-img`}
-          />
-          {isUserWinner === WINNER_DETAIL.User && (
-            <img src={crownImg} alt="Winner" className="crown-img" />
-          )}
+      {(tournamentsCompleted !== 0 || oneOnOneWinner !== "") && (
+        <div className="selection-div-cntr">
+          <label htmlFor="user-input-select">
+            <strong>Your Selection:</strong>
+          </label>
+          <div
+            className={`${
+              isTournamentSelected &&
+              currentRoundWinner === WINNER_DETAIL.Computer
+                ? "match-lost crown-cntr"
+                : " crown-cntr"
+            }`}
+          >
+            <img
+              id="user-input-select"
+              src={IMAGE_MAP[selected]}
+              alt={selected}
+              title={selected}
+              className={`user-choice-img`}
+            />
+            {!isTournamentSelected && isUserWinner === WINNER_DETAIL.User && (
+              <img src={crownImg} alt="Winner" className="crown-img" />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

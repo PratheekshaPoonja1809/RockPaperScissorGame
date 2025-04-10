@@ -29,14 +29,14 @@ export function FaceOff() {
   const startFaceoffMatch = () => {
     if (matchType === MATCH_TYPE.NORMAL) {
       const input = prompt(
-        "How many matches do you want to play? Pick a number from 1 to 10!"
+        "How many matches do you want to play? Pick a number from 2 to 100!"
       );
       const parsed = parseInt(input, 10);
 
-      if (!isNaN(parsed) && parsed >= 1 && parsed <= 10) {
+      if (!isNaN(parsed) && parsed >= 2 && parsed <= 100) {
         updateTournamentState(true, parsed);
       } else if (input !== null) {
-        alert("Please enter a valid number between 1 and 10.");
+        alert("Please enter a valid number between 2 and 100.");
         updateTournamentState(false, 0);
       }
     } else {

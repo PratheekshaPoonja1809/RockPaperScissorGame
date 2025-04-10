@@ -1,8 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { VICTORY_STATUS, UserContext, WINNER_DETAIL } from "./Constants";
+import {
+  VICTORY_STATUS,
+  UserContext,
+  WINNER_DETAIL,
+  IMAGE_MAP,
+} from "./Constants";
 import { getWinnerDetail } from "./helpers/getWinnerDetail";
 import Button from "./utils/Button";
+import Modal from "./utils/Modal";
+import { getRandomChoice } from "./helpers/getRandomChoice";
+import { Frown, Meh, Smile } from "react-feather";
 
 export function Results() {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
@@ -18,6 +26,7 @@ export function Results() {
       userWinningCount,
       compWinningCount,
       tournamentsCompleted,
+      totalMatchToConduct,
     },
   } = finalSelection;
 
@@ -35,6 +44,14 @@ export function Results() {
             ...prevMatch,
             oneOnOneWinner: winnerDetail,
           },
+          tournamentMatchResult: {
+            isTournamentSelected: false,
+            totalMatchToConduct: 0,
+            tournamentsCompleted: 0,
+            userWinningCount: 0,
+            compWinningCount: 0,
+            currentRoundWinner: "",
+          },
         };
       });
     }
@@ -46,9 +63,14 @@ export function Results() {
       setResult(resultText);
       setFinalSelection((prev) => {
         const prevTournament = prev.tournamentMatchResult || {};
+        const prevMatch = prev.normalMatchResult || {};
         return {
           ...prev,
           selectionComplete: false,
+          normalMatchResult: {
+            ...prevMatch,
+            oneOnOneWinner: "",
+          },
           tournamentMatchResult: {
             ...prevTournament,
             userWinningCount:
@@ -61,13 +83,51 @@ export function Results() {
                 : prevTournament.compWinningCount || 0,
             tournamentsCompleted:
               (prevTournament.tournamentsCompleted || 0) + 1,
+            currentRoundWinner: winnerDetail || "",
           },
         };
       });
     }
   };
 
-  const resetTournamentMatch = () => {};
+  const mapImage =
+    userWinningCount > compWinningCount
+      ? WINNER_DETAIL.User
+      : userWinningCount < compWinningCount
+      ? WINNER_DETAIL.Computer
+      : WINNER_DETAIL.Tie;
+
+  const getFaceoffResults = () => {
+    let winnerDetail = "";
+    if (userWinningCount === compWinningCount) {
+      winnerDetail = "Tie";
+    }
+    if (userWinningCount > compWinningCount) {
+      winnerDetail = "User";
+    }
+    if (userWinningCount < compWinningCount) {
+      winnerDetail = "Computer";
+    }
+    let param = VICTORY_STATUS[winnerDetail] || VICTORY_STATUS.ToStart;
+    return getRandomChoice(param);
+  };
+
+  const resetTournamentMatch = () => {
+    setFinalSelection((prev) => {
+      const prevTournament = prev.tournamentMatchResult || {};
+      return {
+        ...prev,
+        selectionComplete: false,
+        tournamentMatchResult: {
+          ...prevTournament,
+          userWinningCount: 0,
+          compWinningCount: 0,
+          tournamentsCompleted: 0,
+          currentRoundWinner: "",
+        },
+      };
+    });
+  };
 
   useEffect(() => {
     if (!compSelectInfo) return;
@@ -89,11 +149,24 @@ export function Results() {
       {isTournamentSelected ? (
         <div className="tournament-result-cntr">
           <h3>
-            ScoreBoard - {userWinningCount}:{compWinningCount}
+            Score: Player {userWinningCount} - {compWinningCount} Computer
           </h3>
-          <h3>Match Completed - {tournamentsCompleted}</h3>
-          {!VICTORY_STATUS.ToStart?.includes(result) && <>Result:</>}
-          <Button text="Reset" onClick={resetTournamentMatch} />
+          <h3>Matches Played: {tournamentsCompleted}</h3>
+          <Button text="Rematch" onClick={resetTournamentMatch} />
+          {tournamentsCompleted === totalMatchToConduct && (
+            <Modal text="Game Outcome" onClose={resetTournamentMatch} width="25%">
+              <h3 className="flex-center">{getFaceoffResults()}
+                {mapImage === WINNER_DETAIL.User &&<Smile color="green"/>}
+                {mapImage === WINNER_DETAIL.Computer &&<Frown color="red"/>}
+                {mapImage === WINNER_DETAIL.Tie &&<Meh color="orange"/>}
+              </h3>
+              <img
+                src={IMAGE_MAP[mapImage]}
+                alt={"results"}
+                className="face-off-result-img"
+              />
+            </Modal>
+          )}
         </div>
       ) : (
         <h3>

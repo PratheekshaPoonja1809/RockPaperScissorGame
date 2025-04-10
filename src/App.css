@@ -10,6 +10,12 @@
   margin-top: 1%;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button {
   background-color: #0909b8;
   color: white;
@@ -68,10 +74,7 @@
   width: 100%;
   height: 100%;
   inset: 0px;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #242424aa
 }
 
@@ -145,6 +148,10 @@
   margin-top: 25px;
 }
 
+.face-off-result-img {
+  height: 200px;
+}
+
 .crown-cntr {
   position: relative;
 }
@@ -154,6 +161,7 @@
   position: absolute;
   top: -20%;
   right: 18%;
+  opacity: 1;
 }
 
 .match-info {
@@ -165,21 +173,15 @@
   margin: 5px;
 }
 
-.match-won{
-  border-bottom: 5px solid green;
+.match-lost {
+  opacity: 0.3;
 }
 
-.game-rule-font{
+.game-rule-font {
   font-family: "Courier New", monospace;
 }
 
-.game-rules >li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-rules >li > img{
+.game-rules>li>img {
   height: 22px;
   display: inline-block;
 }
