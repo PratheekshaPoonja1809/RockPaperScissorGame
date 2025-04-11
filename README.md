@@ -1,6 +1,6 @@
 ## 🚀 Live Demo
 
-[Play the Game Now!](https://pratheekshapoonja1809.github.io/RockPaperScissorGame/)
+[Experience the app live](https://pratheekshapoonja1809.github.io/RockPaperScissorGame/)
 
 
 # React + Vite
