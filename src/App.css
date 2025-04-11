@@ -172,11 +172,10 @@
 }
 
 .crown-img {
-  height: 100px;
+  height: 55px;
   position: absolute;
-  top: -20%;
-  right: 18%;
-  opacity: 1;
+  top: -10%;
+  right: 20%;
 }
 
 .match-info {

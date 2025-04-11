@@ -161,7 +161,7 @@ export function Results() {
                   <>
                     <Smile color="green" className="padding1" />
                     <span>
-                      You won by {userWinningCount} : {compWinningCount}
+                      Final score: {userWinningCount} - {compWinningCount}
                     </span>
                   </>
                 )}
@@ -169,7 +169,7 @@ export function Results() {
                   <>
                     <Frown color="red" className="padding1" />
                     <span>
-                      You lost by {userWinningCount} : {compWinningCount}
+                      Final score: {userWinningCount} - {compWinningCount}
                     </span>
                   </>
                 )}
@@ -177,7 +177,7 @@ export function Results() {
                   <>
                     <Meh color="orange" className="padding1" />
                     <span>
-                      {userWinningCount} : {compWinningCount}
+                      Final score: {userWinningCount} - {compWinningCount}
                     </span>
                   </>
                 )}

@@ -79,15 +79,13 @@ export function Userselection() {
                 : " crown-cntr"
             }`}
           >
-            <Tippy content={selected}>
-              <img
-                id="user-input-select"
-                src={IMAGE_MAP[selected]}
-                alt={selected}
-                title={selected}
-                className={`user-choice-img`}
-              />
-            </Tippy>
+            <img
+              id="user-input-select"
+              src={IMAGE_MAP[selected]}
+              alt={selected}
+              title={selected}
+              className={`user-choice-img`}
+            />
             {!isTournamentSelected && isUserWinner === WINNER_DETAIL.User && (
               <img src={crownImg} alt="Winner" className="crown-img" />
             )}

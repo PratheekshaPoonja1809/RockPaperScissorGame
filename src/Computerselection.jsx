@@ -35,14 +35,12 @@ export function Computerselection() {
                 : "crown-cntr"
             }`}
           >
-            <Tippy content={compSelectInfo}>
-              <img
-                id="comp-input-select"
-                src={IMAGE_MAP[compSelectInfo]}
-                alt={compSelectInfo}
-                className={`choosen-img`}
-              />
-            </Tippy>
+            <img
+              id="comp-input-select"
+              src={IMAGE_MAP[compSelectInfo]}
+              alt={compSelectInfo}
+              className={`choosen-img`}
+            />
             {!isTournamentSelected &&
               isCompWinner === WINNER_DETAIL.Computer && (
                 <img src={crownImg} alt="winner" className="crown-img" />
