@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Button({ text, onClick, className = "button" }) {
+function Button({ text="Click", onClick, className = "button" }) {
   return (
     <button onClick={onClick} className={className}>
       {text}
@@ -16,7 +16,6 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  text: "Click",
   onClick: () => alert("Button clicked!"),
 };
 

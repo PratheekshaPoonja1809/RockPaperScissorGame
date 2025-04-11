@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import crownImg from "./assets/crown.png";
-import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
+import { CHOICES, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import { getRandomChoice } from "./helpers/getRandomChoice";
 import Tippy from "@tippyjs/react";
 
@@ -26,7 +26,7 @@ export function Userselection() {
       !isTournamentSelected ||
       (isTournamentSelected && totalMatchToConduct > matchCompleted)
     ) {
-      let choice = getRandomChoice(choices);
+      let choice = getRandomChoice(CHOICES);
       setSelected(value);
       isTournamentSelected && setMatchCompleted((num) => num + 1);
       setFinalSelection((prev) => {
@@ -54,7 +54,7 @@ export function Userselection() {
         <strong>Choose an option:</strong>
       </p>
       <div className="image-selection">
-        {choices.map((choice) => (
+        {CHOICES.map((choice) => (
           <Tippy content={choice} key={choice}>
             <img
               key={choice}

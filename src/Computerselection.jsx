@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { choices, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
+import { CHOICES, IMAGE_MAP, UserContext, WINNER_DETAIL } from "./Constants";
 import PropTypes from "prop-types";
 import crownImg from "./assets/crown.png";
-import Tippy from "@tippyjs/react";
 
 export const Computerselection = React.memo(() => {
   const { finalSelection } = useContext(UserContext);
@@ -59,5 +58,5 @@ Computerselection.propTypes = {
 };
 
 Computerselection.defaultProps = {
-  selectionDone: choices[0],
+  selectionDone: CHOICES[0],
 };

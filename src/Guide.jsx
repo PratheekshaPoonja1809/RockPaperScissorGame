@@ -66,9 +66,9 @@ export const Guide = ({ onClose }) => {
 };
 
 Guide.propTypes = {
-  onClick: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 Guide.defaultProps = {
-  onClick: () => alert("Button clicked!"),
+  onClose: () => alert("Close"),
 };

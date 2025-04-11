@@ -10,7 +10,7 @@ export const UserContext = createContext();
 
 export const APP_TITLE = "Rock - Paper - Scissors";
 
-export const choices = ["Rock", "Paper", "Scissors"];
+export const CHOICES = ["Rock", "Paper", "Scissors"];
 
 export const IMAGE_MAP = {
   Rock: rockImg,
@@ -24,7 +24,7 @@ export const IMAGE_MAP = {
 export const VICTORY_STATUS = {
   ToStart: [
     "Let the game begin - pick one! ",
-    "Rock, Paper, or Scissors?" ,
+    "Rock, Paper, or Scissors?",
     "Don't keep the computer waiting...",
     "Choose your weapon...",
   ],

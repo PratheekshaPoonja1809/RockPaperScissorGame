@@ -1,32 +1,32 @@
-import { choices, VICTORY_STATUS, WINNER_DETAIL } from "../Constants";
+import { CHOICES, VICTORY_STATUS, WINNER_DETAIL } from "../Constants";
 import { getRandomChoice } from "./getRandomChoice";
 
 export const getWinnerDetail = (finalSelection) => {
   let winnerDetail = "";
- 
+
   const { userSelectInfo, compSelectInfo } = finalSelection; //ch
 
   if (compSelectInfo === userSelectInfo) {
     winnerDetail = WINNER_DETAIL.Tie;
   } else {
     switch (userSelectInfo) {
-      case choices[0]: // Rock
+      case CHOICES[0]: // Rock
         winnerDetail =
-          compSelectInfo === choices[1] // Paper
+          compSelectInfo === CHOICES[1] // Paper
             ? WINNER_DETAIL.Computer
             : WINNER_DETAIL.User;
         break;
 
-      case choices[1]: // Paper
+      case CHOICES[1]: // Paper
         winnerDetail =
-          compSelectInfo === choices[2] // Scissors
+          compSelectInfo === CHOICES[2] // Scissors
             ? WINNER_DETAIL.Computer
             : WINNER_DETAIL.User;
         break;
 
-      case choices[2]: // Scissors
+      case CHOICES[2]: // Scissors
         winnerDetail =
-          compSelectInfo === choices[0] // Rock
+          compSelectInfo === CHOICES[0] // Rock
             ? WINNER_DETAIL.Computer
             : WINNER_DETAIL.User;
         break;
