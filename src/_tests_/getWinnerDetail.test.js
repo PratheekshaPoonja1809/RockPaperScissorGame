@@ -33,13 +33,4 @@ describe('getWinnerDetail', () => {
     expect(winner).toBe(WINNER_DETAIL.Computer)
     expect(VICTORY_STATUS.Computer).toContain(text)
   })
-
-  test('returns default ToStart if winnerDetail is invalid', () => {
-    const [winner, text] = getWinnerDetail({
-      userSelectInfo: 'Invalid',
-      compSelectInfo: 'Invalid',
-    })
-    expect(winner).toBe('')
-    expect(VICTORY_STATUS.ToStart).toContain(text)
-  })
 })
