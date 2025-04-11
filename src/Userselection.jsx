@@ -28,7 +28,7 @@ export function Userselection() {
     ) {
       let choice = getRandomChoice(choices);
       setSelected(value);
-      setMatchCompleted((num) => num + 1);
+      isTournamentSelected && setMatchCompleted((num) => num + 1);
       setFinalSelection((prev) => {
         return {
           ...prev,
@@ -55,7 +55,7 @@ export function Userselection() {
       </p>
       <div className="image-selection">
         {choices.map((choice) => (
-          <Tippy content={choice}>
+          <Tippy content={choice} key={choice}>
             <img
               key={choice}
               src={IMAGE_MAP[choice]}
@@ -73,8 +73,10 @@ export function Userselection() {
           </label>
           <div
             className={`${
-              isTournamentSelected &&
-              currentRoundWinner === WINNER_DETAIL.Computer
+              (isTournamentSelected &&
+                currentRoundWinner === WINNER_DETAIL.Computer) ||
+              (!isTournamentSelected &&
+                oneOnOneWinner === WINNER_DETAIL.Computer)
                 ? "match-lost crown-cntr"
                 : " crown-cntr"
             }`}

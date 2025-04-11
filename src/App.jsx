@@ -50,6 +50,7 @@ function App() {
             <div className="menu-cntr">
               <Tippy content="Give us your thoughts">
                 <MoreVertical
+                  className="menu-option "
                   onClick={() => setFeedbackRequested(!isFeedbackRequested)}
                 />
               </Tippy>

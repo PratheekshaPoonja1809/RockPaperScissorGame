@@ -3,6 +3,7 @@ import match from "./assets/faceoff.png";
 import { LogOut } from "react-feather";
 import { MATCH_TYPE, UserContext } from "./Constants";
 import Tippy from "@tippyjs/react";
+import Button from "./utils/Button";
 
 export function FaceOff() {
   const [matchCount, setMatchCount] = useState(0);
@@ -27,18 +28,17 @@ export function FaceOff() {
     }));
   };
 
-  const startFaceoffMatch = () => {
-    if (matchType === MATCH_TYPE.NORMAL) {
+  const startFaceoffMatch = (countChange) => {
+    if (matchType === MATCH_TYPE.NORMAL || countChange) {
       const input = prompt(
         "How many matches do you want to play? Pick a number from 2 to 100!"
       );
-      const parsed = parseInt(input, 10);
+      const parsed = Number(input);
 
       if (!isNaN(parsed) && parsed >= 2 && parsed <= 100) {
         updateTournamentState(true, parsed);
       } else if (input !== null) {
         alert("Please enter a valid number between 2 and 100.");
-        updateTournamentState(false, 0);
       }
     } else {
       updateTournamentState(false, 0);
@@ -52,7 +52,7 @@ export function FaceOff() {
           <LogOut
             alt="Exit Face-off"
             className="menu-option face-off"
-            onClick={startFaceoffMatch}
+            onClick={() => startFaceoffMatch(false)}
           />
         </Tippy>
       ) : (
@@ -61,13 +61,18 @@ export function FaceOff() {
             src={match}
             alt="Face-off"
             className="menu-option face-off"
-            onClick={startFaceoffMatch}
+            onClick={() => startFaceoffMatch(false)}
           />
         </Tippy>
       )}
       {matchCount > 0 && matchType === MATCH_TYPE.TOURNAMENT && (
         <h3 className="match-info">
-          Let the battle begin - {matchCount}{" "}
+          Let the battle begin -{" "}
+          <Button
+            text={matchCount}
+            className="match-count-btn"
+            onClick={() => startFaceoffMatch(true)}
+          />
           {matchCount === 1 ? "match" : "matches"} lined up!!
         </h3>
       )}

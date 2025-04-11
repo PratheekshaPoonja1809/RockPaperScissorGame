@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   VICTORY_STATUS,
@@ -12,7 +12,7 @@ import Modal from "./utils/Modal";
 import { getRandomChoice } from "./helpers/getRandomChoice";
 import { Frown, Meh, Smile } from "react-feather";
 
-export function Results() {
+export const Results = React.memo(() => {
   const { finalSelection, setFinalSelection } = useContext(UserContext);
   const [result, setResult] = useState("");
 
@@ -30,7 +30,14 @@ export function Results() {
     },
   } = finalSelection;
 
-  const displayResult = () => {
+  const mapImage =
+    userWinningCount > compWinningCount
+      ? WINNER_DETAIL.User
+      : userWinningCount < compWinningCount
+      ? WINNER_DETAIL.Computer
+      : WINNER_DETAIL.Tie;
+
+  const displayResult = useCallback(() => {
     const [winnerDetail, resultText] = getWinnerDetail(finalSelection);
     if (selectionComplete) {
       setResult(resultText);
@@ -55,12 +62,12 @@ export function Results() {
         };
       });
     }
-  };
+  }, [finalSelection, selectionComplete, setFinalSelection]);
 
-  const displayTournamentResult = () => {
+  const displayTournamentResult = useCallback(() => {
     if (selectionComplete) {
-      const [winnerDetail, resultText] = getWinnerDetail(finalSelection);
-      setResult(resultText);
+      const [winnerDetail] = getWinnerDetail(finalSelection);
+      setResult("");
       setFinalSelection((prev) => {
         const prevTournament = prev.tournamentMatchResult || {};
         const prevMatch = prev.normalMatchResult || {};
@@ -88,14 +95,7 @@ export function Results() {
         };
       });
     }
-  };
-
-  const mapImage =
-    userWinningCount > compWinningCount
-      ? WINNER_DETAIL.User
-      : userWinningCount < compWinningCount
-      ? WINNER_DETAIL.Computer
-      : WINNER_DETAIL.Tie;
+  }, [finalSelection, selectionComplete, setFinalSelection]);
 
   const getFaceoffResults = () => {
     let winnerDetail = "";
@@ -112,12 +112,18 @@ export function Results() {
     return getRandomChoice(param);
   };
 
-  const resetTournamentMatch = () => {
+  const resetTournamentMatch = useCallback(() => {
     setFinalSelection((prev) => {
       const prevTournament = prev.tournamentMatchResult || {};
+      const prevMatch = prev.normalMatchResult || {};
+
       return {
         ...prev,
         selectionComplete: false,
+        normalMatchResult: {
+          ...prevMatch,
+          oneOnOneWinner: "",
+        },
         tournamentMatchResult: {
           ...prevTournament,
           userWinningCount: 0,
@@ -127,22 +133,32 @@ export function Results() {
         },
       };
     });
-  };
+  }, [setFinalSelection]);
 
   useEffect(() => {
     if (!compSelectInfo) return;
     if (!isTournamentSelected) {
       displayResult();
     }
-  }, [selectionComplete, compSelectInfo]);
+  }, [selectionComplete, compSelectInfo, isTournamentSelected, displayResult]);
 
   useEffect(() => {
     if (!compSelectInfo || !selectionComplete) return;
     if (isTournamentSelected) {
       displayTournamentResult();
     }
-  }, [selectionComplete, compSelectInfo, userSelectInfo]);
+  }, [
+    selectionComplete,
+    compSelectInfo,
+    userSelectInfo,
+    isTournamentSelected,
+    displayTournamentResult,
+  ]);
   //both compSelectInfo, userSelectInfo is passed as dependency as count wont increase if user/computer selects same option as previous ones
+
+  useEffect(() => {
+    isTournamentSelected && resetTournamentMatch();
+  }, [isTournamentSelected, resetTournamentMatch]);
 
   return (
     <>
@@ -152,7 +168,10 @@ export function Results() {
             Score: Player {userWinningCount} - {compWinningCount} Computer
           </h3>
           <h3>Matches Played: {tournamentsCompleted}</h3>
-          <Button text="Rematch" onClick={resetTournamentMatch} />
+          {tournamentsCompleted > 0 && (
+            <Button text="Rematch" onClick={resetTournamentMatch} />
+          )}
+
           {tournamentsCompleted === totalMatchToConduct && (
             <Modal text="Game Outcome" onClose={resetTournamentMatch}>
               <h3 className="flex-center no-white-space">
@@ -192,7 +211,6 @@ export function Results() {
         </div>
       ) : (
         <h3>
-          {!VICTORY_STATUS.ToStart?.includes(result) && <>Result:</>}
           <span
             style={{
               color:
@@ -210,6 +228,6 @@ export function Results() {
       )}
     </>
   );
-}
+});
 
 Results.propTypes = { userInputChanged: PropTypes.string };

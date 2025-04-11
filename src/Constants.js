@@ -4,7 +4,7 @@ import paperImg from "./assets/paper.png";
 import scissorsImg from "./assets/scissor.png";
 import victoryImg from "./assets/award.gif";
 import tieImg from "./assets/draw.gif";
-import lostImg from "./assets/lost-game.gif";
+import lostImg from "./assets/lost.gif";
 
 export const UserContext = createContext();
 

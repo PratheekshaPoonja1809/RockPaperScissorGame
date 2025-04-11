@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import crownImg from "./assets/crown.png";
 import Tippy from "@tippyjs/react";
 
-export function Computerselection() {
+export const Computerselection = React.memo(() => {
   const { finalSelection } = useContext(UserContext);
   const [isCompWinner, setWinnerDetail] = useState(false);
   const {
@@ -30,7 +30,9 @@ export function Computerselection() {
           </label>
           <div
             className={`${
-              isTournamentSelected && currentRoundWinner === WINNER_DETAIL.User
+              (isTournamentSelected &&
+                currentRoundWinner === WINNER_DETAIL.User) ||
+              (!isTournamentSelected && oneOnOneWinner === WINNER_DETAIL.User)
                 ? "match-lost crown-cntr"
                 : "crown-cntr"
             }`}
@@ -50,7 +52,7 @@ export function Computerselection() {
       )}
     </>
   );
-}
+});
 
 Computerselection.propTypes = {
   selectionDone: PropTypes.string,
