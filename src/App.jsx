@@ -7,7 +7,7 @@ import { Userselection } from "./Userselection";
 import { Computerselection } from "./Computerselection";
 import { Results } from "./Results";
 import { APP_TITLE, FEEDBACK, MATCH_DETAILS, UserContext } from "./Constants";
-import { HelpCircle, Linkedin, Mail, MoreVertical } from "react-feather";
+import { HelpCircle, Linkedin, Mail, Star } from "react-feather";
 import Modal from "./utils/Modal";
 import { FaceOff } from "./FaceOff";
 import { Guide } from "./Guide";
@@ -49,7 +49,7 @@ function App() {
           {!timer && (
             <div className="menu-cntr">
               <Tippy content="Give us your thoughts">
-                <MoreVertical
+                <Star
                   className="menu-option "
                   onClick={() => setFeedbackRequested(!isFeedbackRequested)}
                 />
